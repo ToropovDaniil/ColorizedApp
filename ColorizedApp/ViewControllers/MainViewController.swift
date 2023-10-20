@@ -21,9 +21,3 @@ class MainViewController: UIViewController {
         settingsVC.viewColor = view.backgroundColor
     }
 }
-
-extension MainViewController: SettingsViewControllerDelegate {
-    func setNewColor(_ color: UIColor) {
-        view.backgroundColor = color
-    }
-}
