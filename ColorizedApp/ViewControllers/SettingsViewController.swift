@@ -32,7 +32,6 @@ final class SettingsViewController: UIViewController {
         super.viewDidLoad()
         
         setupSliders()
-        setupColorView()
         setupValueOfLabels()
         
         colorView.backgroundColor = viewColor
@@ -42,12 +41,15 @@ final class SettingsViewController: UIViewController {
     // MARK: - IB Actions
     @IBAction func sliderAction(_ sender: UISlider) {
         setupColorView()
-        if sender.tag == 0 {
+        switch sender.tag {
+        case 0:
             getFormatLabel(valueRedLabel, redSlider)
-        } else if sender.tag == 1 {
+        case 1:
             getFormatLabel(valueGreenLabel, greenSlider)
-        } else if sender.tag == 2 {
+        case 2:
             getFormatLabel(valueBlueLabel, blueSlider)
+        default:
+            break
         }
     }
 
@@ -58,31 +60,19 @@ final class SettingsViewController: UIViewController {
     
     // MARK: - Private Methods
     private func setupValueOfLabels() {
-        valueRedLabel.text = redSlider.value.formatted()
+        
         getFormatLabel(valueRedLabel, redSlider)
-        
-        valueGreenLabel.text = greenSlider.value.formatted()
         getFormatLabel(valueGreenLabel, greenSlider)
-        
-        valueBlueLabel.text = blueSlider.value.formatted()
         getFormatLabel(valueBlueLabel, blueSlider)
     }
     
     private func setupSliders() {
-        var red: CGFloat = 0
-        var green: CGFloat = 0
-        var blue: CGFloat = 0
-        var alpha: CGFloat = 0
         
-        viewColor.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+        let ciColor = CIColor(color: viewColor)
         
-        redSlider.value = Float(red)
-        greenSlider.value = Float(green)
-        blueSlider.value = Float(blue)
-        
-        redSlider.minimumTrackTintColor = .red
-        greenSlider.minimumTrackTintColor = .green
-        blueSlider.minimumTrackTintColor = .blue
+        redSlider.value = Float(ciColor.red)
+        greenSlider.value = Float(ciColor.green)
+        blueSlider.value = Float(ciColor.blue)
     }
     
     private func getFormatLabel(_ valueLabel: UILabel, _ slider: UISlider) {

@@ -7,8 +7,4 @@
 
 import UIKit
 
-extension MainViewController: SettingsViewControllerDelegate {
-    func setNewColor(_ color: UIColor) {
-        view.backgroundColor = color
-    }
-}
+
